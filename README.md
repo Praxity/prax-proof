@@ -75,6 +75,11 @@ Anonymous pseudonymous identity is the default. Operators can configure notice o
 
 Read keys are separate from ingest keys, so pages can write results without being able to read them back. The read API provides JSON summaries and paste-ready markdown reports; `llms.txt` documents those endpoints for AI builders, and [docs/api.md](docs/api.md) is the reference.
 
+The dashboard follows your operating system's light or dark appearance by
+default. A Theme control in the header pins it to Light or Dark instead, or back
+to Auto. The choice is stored per device and per browser, not per account, so it
+never travels with your data and never leaves the browser.
+
 ## Deploy
 
 **Recommended:** use the Deploy to Cloudflare button. See [docs/deploy.md](docs/deploy.md) for one-click, CLI, EU jurisdiction, and the current limits of regional placement. Production instances must set the `ADMIN_PASSWORD` secret:

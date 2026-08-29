@@ -27,7 +27,7 @@ describe("dashboard shell", () => {
     const res = await SELF.fetch("https://proof.test/dashboard.css");
     expect(res.status).toBe(200);
     expect(res.headers.get("Content-Type")).toBe("text/css; charset=utf-8");
-    expect(await res.text()).toContain("--prax-color-bg");
+    expect(await res.text()).toContain("--prax-color-canvas");
   });
 });
 

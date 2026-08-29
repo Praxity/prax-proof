@@ -82,6 +82,31 @@ test("settings page has no axe violations", async ({ page }) => {
   await expectNoViolations(page);
 });
 
+test("theme selector pins a scheme, persists it, and stays accessible in dark", async ({ page }) => {
+  await page.goto("/dashboard");
+  await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.*/);
+
+  await page.selectOption("#prax-theme", "dark");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
+  // The preference is per-device, so it has to survive navigation to a page
+  // that carries the theme script but has no selector of its own.
+  await page.goto(`/dashboard/activity?iri=${encodeURIComponent(IRI)}`);
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(page.locator("#prax-theme")).toHaveValue("dark");
+  await expectNoViolations(page);
+
+  await page.goto("/about");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expectNoViolations(page);
+
+  await page.goto("/dashboard");
+  await page.selectOption("#prax-theme", "auto");
+  await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.*/);
+  await page.reload();
+  await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.*/);
+});
+
 test("keyboard reveals and activates the skip link", async ({ page, browserName }) => {
   await page.goto("/dashboard");
   await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
