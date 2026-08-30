@@ -1,19 +1,42 @@
 // SPDX-License-Identifier: MIT
-import { SELF } from "cloudflare:test";
+import { env, SELF } from "cloudflare:test";
 import { describe, expect, it } from "vitest";
+import { D1Storage } from "../src/storage/d1";
 
 describe("GET /", () => {
-  it("serves the public landing page without auth or xAPI version headers", async () => {
+  it("serves a public instance summary without auth or xAPI version headers", async () => {
     const res = await SELF.fetch("https://proof.test/");
     expect(res.status).toBe(200);
+    expect(res.headers.get("Cache-Control")).toBe("no-store");
     expect(res.headers.get("Content-Type")).toContain("text/html");
     const body = await res.text();
     expect(body).toContain('href="/dashboard"');
-    expect(body).toContain('href="/about"');
-    expect(body).toContain("This site collects learning results for activities its owner runs.");
-    expect(body).toContain("Learner data stays on the owner&#39;s own Cloudflare account.");
-    expect(body).not.toContain("conformant LRS");
+    expect(body).toContain('href="/privacy"');
+    expect(body).toContain("Learning activity results");
+    expect(body).toContain("retained for 365 days");
+    expect(body).toContain("Operator access");
+    expect(body).not.toContain("Cloudflare account");
     expect(body).toContain("<main");
+  });
+
+  it("uses configured operator, retention, contact, and policy details", async () => {
+    const storage = new D1Storage(env.DB);
+    const current = await storage.getSettings();
+    await storage.updateSettings({
+      ...current,
+      operatorName: "Example Learning Co-op",
+      privacyUrl: "https://learn.example/privacy",
+      privacyContact: "privacy@learn.example",
+      retentionDays: 90,
+    });
+
+    const res = await SELF.fetch("https://proof.test/");
+    const body = await res.text();
+    expect(body).toContain("Learning results for Example Learning Co-op");
+    expect(body).toContain("Example Learning Co-op uses Praxity Proof to record participation and results");
+    expect(body).toContain("retained for 90 days");
+    expect(body).toContain("privacy@learn.example");
+    expect(body).toContain('href="https://learn.example/privacy"');
   });
 });
 

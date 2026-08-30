@@ -139,6 +139,14 @@ form.prax-form .prax-form-actions { grid-column: 2; }
 .prax-error { border-left-color: var(--prax-color-danger); }
 .prax-error h2 { margin-top: 0; }
 .prax-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.prax-landing { max-width: 52rem; padding-top: clamp(2.5rem, 8vw, 5rem); }
+.prax-landing h1 { max-width: 15ch; font-size: clamp(2rem, 7vw, 3.5rem); line-height: 1.05; letter-spacing: -0.035em; }
+.prax-lede { max-width: 42rem; color: var(--prax-color-muted); font-size: 1.15rem; }
+.prax-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; margin: 2rem 0; }
+.prax-fact, .prax-contact { background: var(--prax-color-surface); border: 1px solid var(--prax-color-border); border-radius: var(--prax-radius-2); padding: 1.2rem; }
+.prax-fact h2, .prax-contact h2 { margin-top: 0; }
+.prax-primary { display: inline-block; background: var(--prax-color-accent); color: var(--prax-color-canvas); border-radius: var(--prax-radius-1); padding: 0.7rem 1rem; font-weight: var(--prax-type-heading-weight); text-decoration: none; }
+.prax-operator { margin-top: 3rem; }
 .prax-visually-hidden {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
