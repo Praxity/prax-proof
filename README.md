@@ -7,6 +7,10 @@ See participation, completion, scores, and where learners stopped, on your own C
 
 ![Proof dashboard — activity detail with completion rate, drop-off funnel, and learner roster](docs/assets/dashboard.png)
 
+The same page in dark mode.
+
+![Proof dashboard in dark mode — the same activity detail, with the biggest drop-off step marked in yellow](docs/assets/dashboard-dark.png)
+
 ## How it works
 
 1. Deploy your instance (one click below, or CLI).

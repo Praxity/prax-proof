@@ -168,10 +168,10 @@ test("captures the dashboard activity detail screenshot", async ({ page, request
   await expect(page.getByRole("heading", { name: "Fractions quiz" })).toBeVisible();
   mkdirSync("docs/assets", { recursive: true });
   await page.screenshot({ path: "docs/assets/dashboard.png", fullPage: false });
-  mkdirSync("test-results", { recursive: true });
   await page.selectOption("#prax-theme", "dark");
-  await page.screenshot({ path: "test-results/dashboard-dark.png", fullPage: false });
+  await page.screenshot({ path: "docs/assets/dashboard-dark.png", fullPage: false });
   await page.selectOption("#prax-theme", "auto");
+  mkdirSync("test-results", { recursive: true });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: "test-results/mobile-dashboard.png", fullPage: false });
 });
