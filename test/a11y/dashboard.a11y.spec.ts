@@ -60,6 +60,7 @@ test("activity list has no axe violations", async ({ page }) => {
 test("activity detail has no axe violations", async ({ page }) => {
   await page.goto(`/dashboard/activity?iri=${encodeURIComponent(IRI)}`);
   await expectNoViolations(page);
+  await expect(page.getByRole("cell", { name: "None", exact: true }).first()).toBeVisible();
   const link = page.locator("table a").first();
   learnerHref = (await link.getAttribute("href")) ?? "";
   expect(learnerHref).toContain("/dashboard/learner");
@@ -84,16 +85,17 @@ test("settings page has no axe violations", async ({ page }) => {
 
 test("theme selector pins a scheme, persists it, and stays accessible in dark", async ({ page }) => {
   await page.goto("/dashboard");
+  const theme = page.getByLabel("Theme");
   await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.*/);
 
-  await page.selectOption("#prax-theme", "dark");
+  await theme.selectOption("dark");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 
   // The preference is per-device, so it has to survive navigation to a page
   // that carries the theme script but has no selector of its own.
   await page.goto(`/dashboard/activity?iri=${encodeURIComponent(IRI)}`);
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.locator("#prax-theme")).toHaveValue("dark");
+  await expect(theme).toHaveValue("dark");
   await expectNoViolations(page);
 
   await page.goto("/about");
@@ -101,7 +103,7 @@ test("theme selector pins a scheme, persists it, and stays accessible in dark", 
   await expectNoViolations(page);
 
   await page.goto("/dashboard");
-  await page.selectOption("#prax-theme", "auto");
+  await theme.selectOption("auto");
   await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.*/);
   await page.reload();
   await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.*/);
