@@ -167,7 +167,7 @@ test("destructive actions lead to accessible review screens", async ({ page }) =
 
   await page.goto(`/dashboard/activity?iri=${encodeURIComponent(IRI)}`);
   await page.locator("table a").first().click();
-  await page.getByRole("link", { name: "Review deletion of this learner and all statements" }).click();
+  await page.getByRole("link", { name: "Review deletion of this learner and all statements" }).press("Enter");
   await expect(page.getByRole("heading", { name: /^Delete .+\?$/ })).toBeVisible();
   await expect(page.getByRole("link", { name: "Cancel and return to learner" })).toBeVisible();
   await expectNoViolations(page);
