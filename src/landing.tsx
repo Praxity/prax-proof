@@ -20,13 +20,16 @@ export function Landing(props: { settings: InstanceSettings }) {
         <a class="prax-skip" href="#main">Skip to content</a>
         <header class="prax-top">
           <strong>Praxity Proof</strong>
-          <div class="prax-theme">
-            <label for="prax-theme">Theme</label>
-            <select id="prax-theme" name="theme">
-              <option value="auto">Auto</option>
-              <option value="light">Light</option>
-              <option value="dark">Dark</option>
-            </select>
+          <div class="prax-actions">
+            <a href="/dashboard">Operator access</a>
+            <div class="prax-theme">
+              <label for="prax-theme">Theme</label>
+              <select id="prax-theme" name="theme">
+                <option value="auto">Auto</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+              </select>
+            </div>
           </div>
         </header>
         <main id="main" class="prax-landing" tabindex={-1}>
@@ -61,7 +64,6 @@ export function Landing(props: { settings: InstanceSettings }) {
               <a href={props.settings.privacyUrl} rel="noopener">Operator's full privacy policy</a>
             ) : null}
           </p>
-          <p class="prax-operator"><a href="/dashboard">Operator access</a></p>
         </main>
       </body>
     </html>

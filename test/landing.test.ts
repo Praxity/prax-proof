@@ -15,6 +15,7 @@ describe("GET /", () => {
     expect(body).toContain("Learning activity results");
     expect(body).toContain("retained for 365 days");
     expect(body).toContain("Operator access");
+    expect(body.indexOf("Operator access")).toBeLessThan(body.indexOf("<main"));
     expect(body).not.toContain("Cloudflare account");
     expect(body).toContain("<main");
   });
