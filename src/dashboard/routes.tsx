@@ -66,6 +66,14 @@ const VERB_LABELS: Record<string, string> = {
 };
 const verbLabel = (iri: string) => VERB_LABELS[iri] ?? iri.split("/").pop() ?? iri;
 
+/** A table cell holding only an em dash reads as an empty cell to a screen
+    reader. Keep the glyph for sighted scanning, say the word to assistive tech. */
+function orNone(value: string) {
+  return value === "\u2014"
+    ? <><span aria-hidden="true">{"\u2014"}</span><span class="prax-visually-hidden">None</span></>
+    : value;
+}
+
 const Q_IRI_RE = /\/q\/([^/]+)$/;
 function timelineDetail(row: TimelineRow): string {
   if (row.step) return row.step;
@@ -134,17 +142,17 @@ function FunnelSection(props: {
                 : "—";
               return (
                 <tr class={i === biggestIdx ? "prax-drop-row" : ""}>
-                  <td title={r.step.startsWith("__") ? undefined : r.step}>{r.label}</td>
+                  <td title={r.step.startsWith("__") ? undefined : r.step}>{i === biggestIdx ? <mark>{r.label}</mark> : r.label}</td>
                   <td>
                     <div class="prax-track" aria-hidden="true">
                       <div class="prax-track-fill" style={`width:${width}%`} data-has-value={r.learners > 0 ? "true" : undefined}></div>
                     </div>
                     <span>{String(r.learners)}</span>
                   </td>
-                  <td>{retention}</td>
+                  <td>{orNone(retention)}</td>
                   <td>
-                    {drop}
-                    {i === biggestIdx ? <strong> ▼ biggest drop-off</strong> : null}
+                    {orNone(drop)}
+                    {i === biggestIdx ? <>{" "}<mark>▼ biggest drop-off</mark></> : null}
                   </td>
                 </tr>
               );
@@ -194,7 +202,7 @@ dashboardRoutes.get("/", async (c) => {
                   <td>{String(a.starts)}</td>
                   <td>{String(a.participants)}</td>
                   <td>{String(a.completions)}</td>
-                  <td>{a.lastActivity ? a.lastActivity.slice(0, 10) : "—"}</td>
+                  <td>{orNone(a.lastActivity ? a.lastActivity.slice(0, 10) : "—")}</td>
                 </tr>
               ))}
             </tbody>
@@ -529,7 +537,7 @@ dashboardRoutes.get("/activity", async (c) => {
                       <span class="prax-badge open">In progress</span>
                     )}
                   </td>
-                  <td>{r.scoreRaw !== null ? `${r.scoreRaw} / ${r.scoreMax ?? "?"}` : "—"}</td>
+                  <td>{orNone(r.scoreRaw !== null ? `${r.scoreRaw} / ${r.scoreMax ?? "?"}` : "—")}</td>
                   <td>{r.lastSeen.slice(0, 10)}</td>
                 </tr>
               ))}
@@ -966,8 +974,8 @@ dashboardRoutes.get("/learner", async (c) => {
                 <tr>
                   <td>{row.timestamp.slice(0, 16).replace("T", " ")}</td>
                   <td>{verbLabel(row.verb)}</td>
-                  <td>{timelineDetail(row)}</td>
-                  <td>{timelineResult(row)}</td>
+                  <td>{orNone(timelineDetail(row))}</td>
+                  <td>{orNone(timelineResult(row))}</td>
                 </tr>
               ))}
             </tbody>

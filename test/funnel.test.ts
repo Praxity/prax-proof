@@ -95,7 +95,7 @@ describe("funnel section on activity detail", () => {
     expect(html).toContain("Finished");
     expect(html).toContain("Intro");
     expect(html).toContain("▼ biggest drop-off");
-    expect(html).toMatch(/<tr class="prax-drop-row">\s*<td title="wrap-up">Wrap up<\/td>[\s\S]*?▼ biggest drop-off/);
+    expect(html).toMatch(/<tr class="prax-drop-row">\s*<td title="wrap-up">[\s\S]*?Wrap up[\s\S]*?▼ biggest drop-off/);
   });
 
   it("marks the largest percentage drop, even when a larger absolute loss appears earlier", async () => {
@@ -108,7 +108,7 @@ describe("funnel section on activity detail", () => {
     expect(html).toContain("−5 (50%)");
     expect(html).toContain("Filter review");
     expect(html).toContain("−4 (80%)");
-    expect(html).toMatch(/<tr class="prax-drop-row">\s*<td title="broad-start">Broad start<\/td>[\s\S]*?−4 \(80%\)[\s\S]*?▼ biggest drop-off/);
+    expect(html).toMatch(/<tr class="prax-drop-row">\s*<td title="broad-start">[\s\S]*?Broad start[\s\S]*?−4 \(80%\)[\s\S]*?▼ biggest drop-off/);
   });
 
   it("uses identical fixed-track percentages for equal-count steps", async () => {
@@ -118,7 +118,7 @@ describe("funnel section on activity detail", () => {
     );
     const html = await res.text();
     const widthFor = (label: string) => {
-      const row = new RegExp(`<tr[^>]*>\\s*<td[^>]*>${label}</td>[\\s\\S]*?<div class="prax-track-fill" style="([^"]+)"`).exec(html);
+      const row = new RegExp(`<tr[^>]*>\\s*<td[^>]*>(?:<mark>)?${label}(?:</mark>)?</td>[\\s\\S]*?<div class="prax-track-fill" style="([^"]+)"`).exec(html);
       return row?.[1];
     };
     expect(widthFor("Wrap up")).toBe("width:25%");

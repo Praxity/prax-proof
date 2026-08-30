@@ -7,6 +7,10 @@ See participation, completion, scores, and where learners stopped, on your own C
 
 ![Proof dashboard — activity detail with completion rate, drop-off funnel, and learner roster](docs/assets/dashboard.png)
 
+The same page in dark mode.
+
+![Proof dashboard in dark mode — the same activity detail, with the biggest drop-off step marked in yellow](docs/assets/dashboard-dark.png)
+
 ## How it works
 
 1. Deploy your instance (one click below, or CLI).
@@ -74,6 +78,11 @@ Anonymous pseudonymous identity is the default. Operators can configure notice o
 ## Read your results (humans, scripts, AIs)
 
 Read keys are separate from ingest keys, so pages can write results without being able to read them back. The read API provides JSON summaries and paste-ready markdown reports; `llms.txt` documents those endpoints for AI builders, and [docs/api.md](docs/api.md) is the reference.
+
+The dashboard follows your operating system's light or dark appearance by
+default. A Theme control in the header pins it to Light or Dark instead, or back
+to Auto. The choice is stored per device and per browser, not per account, so it
+never travels with your data and never leaves the browser.
 
 ## Deploy
 

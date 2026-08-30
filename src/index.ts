@@ -12,7 +12,7 @@ import { LLMS_TXT } from "./llms";
 import { aboutHandler } from "./about";
 import { landingHandler } from "./landing";
 import { DASHBOARD_CSS } from "./dashboard/styles";
-import { DASHBOARD_JS } from "./dashboard/ui";
+import { DASHBOARD_JS, THEME_JS } from "./dashboard/ui";
 import { dashboardRoutes } from "./dashboard/routes";
 import { apiRoutes } from "./api/routes";
 import { privacyHandler } from "./privacy";
@@ -267,6 +267,12 @@ app.get("/dashboard.css", (c) =>
 );
 app.get("/dashboard.js", (c) =>
   c.body(DASHBOARD_JS, 200, {
+    "Content-Type": "text/javascript; charset=utf-8",
+    "Cache-Control": "public, max-age=300",
+  }),
+);
+app.get("/theme.js", (c) =>
+  c.body(THEME_JS, 200, {
     "Content-Type": "text/javascript; charset=utf-8",
     "Cache-Control": "public, max-age=300",
   }),

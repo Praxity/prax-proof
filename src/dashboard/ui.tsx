@@ -14,12 +14,14 @@ export function Layout(props: PropsWithChildren<{
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{props.title} · Proof</title>
+        <script src="/theme.js"></script>
         <link rel="stylesheet" href="/dashboard.css" />
         <script src="/dashboard.js" defer></script>
       </head>
       <body data-focus-id={props.focusId}>
         <a class="prax-skip" href="#main">Skip to content</a>
         <header class="prax-top">
+          <div>
           <strong>Proof</strong>
           {" — "}
           <nav aria-label="Primary">
@@ -31,6 +33,15 @@ export function Layout(props: PropsWithChildren<{
             {" · "}
             <a href="/privacy">Privacy notice</a>
           </nav>
+          </div>
+          <div class="prax-theme">
+            <label for="prax-theme">Theme</label>
+            <select id="prax-theme" name="theme">
+              <option value="auto">Auto</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
         </header>
         <main id="main" tabindex={-1}>{props.children}</main>
       </body>
@@ -61,3 +72,26 @@ export function StatCard(props: { label: string; value: string; sub?: string; he
     </div>
   );
 }
+
+export const THEME_JS = `(function () {
+  var root = document.documentElement;
+  root.dataset.js = "1";
+  var stored = null;
+  try { stored = localStorage.getItem("prax-theme"); } catch (e) {}
+  if (stored !== "light" && stored !== "dark") stored = null;
+  if (stored) root.dataset.theme = stored;
+  document.addEventListener("DOMContentLoaded", function () {
+    var sel = document.getElementById("prax-theme");
+    if (!sel) return;
+    sel.value = stored || "auto";
+    sel.addEventListener("change", function () {
+      var v = sel.value;
+      if (v === "auto") delete root.dataset.theme;
+      else root.dataset.theme = v;
+      try {
+        if (v === "auto") localStorage.removeItem("prax-theme");
+        else localStorage.setItem("prax-theme", v);
+      } catch (e) {}
+    });
+  });
+})();`;

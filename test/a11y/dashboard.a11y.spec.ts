@@ -60,6 +60,7 @@ test("activity list has no axe violations", async ({ page }) => {
 test("activity detail has no axe violations", async ({ page }) => {
   await page.goto(`/dashboard/activity?iri=${encodeURIComponent(IRI)}`);
   await expectNoViolations(page);
+  await expect(page.getByRole("cell", { name: "None", exact: true }).first()).toBeVisible();
   const link = page.locator("table a").first();
   learnerHref = (await link.getAttribute("href")) ?? "";
   expect(learnerHref).toContain("/dashboard/learner");
@@ -80,6 +81,32 @@ test("keys page has no axe violations", async ({ page }) => {
 test("settings page has no axe violations", async ({ page }) => {
   await page.goto("/dashboard/settings");
   await expectNoViolations(page);
+});
+
+test("theme selector pins a scheme, persists it, and stays accessible in dark", async ({ page }) => {
+  await page.goto("/dashboard");
+  const theme = page.getByLabel("Theme");
+  await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.*/);
+
+  await theme.selectOption("dark");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
+  // The preference is per-device, so it has to survive navigation to a page
+  // that carries the theme script but has no selector of its own.
+  await page.goto(`/dashboard/activity?iri=${encodeURIComponent(IRI)}`);
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(theme).toHaveValue("dark");
+  await expectNoViolations(page);
+
+  await page.goto("/about");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expectNoViolations(page);
+
+  await page.goto("/dashboard");
+  await theme.selectOption("auto");
+  await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.*/);
+  await page.reload();
+  await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.*/);
 });
 
 test("keyboard reveals and activates the skip link", async ({ page, browserName }) => {
@@ -140,7 +167,7 @@ test("destructive actions lead to accessible review screens", async ({ page }) =
 
   await page.goto(`/dashboard/activity?iri=${encodeURIComponent(IRI)}`);
   await page.locator("table a").first().click();
-  await page.getByRole("link", { name: "Review deletion of this learner and all statements" }).click();
+  await page.getByRole("link", { name: "Review deletion of this learner and all statements" }).press("Enter");
   await expect(page.getByRole("heading", { name: /^Delete .+\?$/ })).toBeVisible();
   await expect(page.getByRole("link", { name: "Cancel and return to learner" })).toBeVisible();
   await expectNoViolations(page);
