@@ -11,3 +11,4 @@ Release validation, post-publication, and alternate-deployment work:
 - [ ] Validate demand for a separate unique-visitors metric before adding one; define browser/device semantics and do not introduce IP storage or fingerprinting.
 - [ ] Decide whether the original operator-generated token roster/link workflow belongs in v0.1; current token mode accepts externally generated opaque tokens.
 - [ ] Validate demand for manual funnel step ordering before adding it; current ordering is derived from first reach and learner chronology.
+- [ ] Support course experiments (deferred 2026-09-28): compare two versions of a Studio course (A/B) in Proof, then add this as the fourth workflow on the praxity.io homepage ("Studio → A/B versions → Proof"). Today it needs two separate activities compared by hand, and Studio → Proof tracking is untested (Studio's xAPI export exists only in the desktop app). The homepage shows no placeholder until a real run exists.
