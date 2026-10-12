@@ -26,7 +26,7 @@ export function About() {
             Learner data is stored in this instance's own Cloudflare D1 database, controlled by whoever operates it. Anonymous and token modes omit page location and identity-bearing metadata; named mode can store a page path but never its query string. Identity is pseudonymous by default, and an operator can explicitly choose names or opaque link tokens.
           </p>
           <ul>
-            <li><a href="https://github.com/Praxity/prax-proof">Source on GitHub, MIT</a></li>
+            <li><a href="https://github.com/Praxity/praxity-proof">Source on GitHub, MIT</a></li>
             <li><a href="/llms.txt">Instructions for AI builders</a></li>
             <li><a href="/privacy">This instance's privacy notice</a></li>
             <li><a href="/">Home</a></li>

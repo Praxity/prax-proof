@@ -1,7 +1,7 @@
 # Proof
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Praxity/prax-proof)
-[![CI](https://github.com/Praxity/prax-proof/actions/workflows/ci.yml/badge.svg)](https://github.com/Praxity/prax-proof/actions/workflows/ci.yml)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Praxity/praxity-proof)
+[![CI](https://github.com/Praxity/praxity-proof/actions/workflows/ci.yml/badge.svg)](https://github.com/Praxity/praxity-proof/actions/workflows/ci.yml)
 
 See participation, completion, scores, and where learners stopped, on your own Cloudflare account. Proof is an open-source (MIT), privacy-aware results tracker for learning activities: no LMS and no subscription.
 
@@ -115,7 +115,7 @@ If Proof saves you time, please help others find the original work by including
 this credit wherever it fits:
 
 > **Proof** by [Ariel Harlap at Praxity.io](https://praxity.io/en/about/) —
-> [source](https://github.com/Praxity/prax-proof)
+> [source](https://github.com/Praxity/praxity-proof)
 
 The MIT license requires the copyright and permission notice to remain in
 copies or substantial portions of the software. This visible credit is

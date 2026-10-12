@@ -6,7 +6,7 @@ import type { AnswerRow, RosterRow } from "../storage/types";
 import { displayLabel, formatDuration, humanizeStep, median } from "../dashboard/format";
 import { buildFunnelRows } from "../reporting/funnel";
 
-const DOCS = "https://github.com/Praxity/prax-proof#api";
+const DOCS = "https://github.com/Praxity/praxity-proof#api";
 
 type ApiCtx = {
   Bindings: Env;

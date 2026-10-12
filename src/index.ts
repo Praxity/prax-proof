@@ -18,7 +18,7 @@ import { apiRoutes } from "./api/routes";
 import { privacyHandler } from "./privacy";
 import { runRetention } from "./retention";
 
-const ERROR_DOCS = "https://github.com/Praxity/prax-proof#errors";
+const ERROR_DOCS = "https://github.com/Praxity/praxity-proof#errors";
 
 type Ctx = {
   Bindings: Env;

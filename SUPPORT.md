@@ -1,6 +1,6 @@
 # Support
 
-Use [GitHub Issues](https://github.com/Praxity/prax-proof/issues) for reproducible
+Use [GitHub Issues](https://github.com/Praxity/praxity-proof/issues) for reproducible
 bugs and documentation gaps. Include the Proof commit, deployment method,
 relevant sanitized logs, and minimal synthetic reproduction data.
 

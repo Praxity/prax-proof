@@ -12,8 +12,8 @@ You can also set `ADMIN_PASSWORD` in the Cloudflare dashboard Variables UI.
 
 ## CLI
 
-    git clone https://github.com/Praxity/prax-proof.git
-    cd prax-proof
+    git clone https://github.com/Praxity/praxity-proof.git
+    cd praxity-proof
     wrangler login
     pnpm install
     pnpm run deploy

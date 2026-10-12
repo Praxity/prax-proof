@@ -182,7 +182,7 @@ Auth failures return a bare `401` body: `{ "error": "Unauthorized" }`. Other 4xx
 ```json
 {
   "error": "Activity not found.",
-  "docs": "https://github.com/Praxity/prax-proof#api"
+  "docs": "https://github.com/Praxity/praxity-proof#api"
 }
 ```
 
