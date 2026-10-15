@@ -29,7 +29,7 @@
     "@playwright/test": "^1.61.1",
     "esbuild": "^0.28.1",
     "typescript": "^6.0.3",
-    "vitest": "~4.1.9",
+    "vitest": "~4.1.11",
     "wrangler": "^4.107.0"
   },
   "pnpm": {
